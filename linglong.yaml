@@ -1,0 +1,27 @@
+version: "1"
+
+package:
+  id: io.github.NetworkOscilloscope
+  name: NetworkOscilloscope
+  version: 0.0.0.1
+  kind: app
+  description: |
+    A Virtual Oscilloscope software base on Qt. It can show waveform sent by a TCP/IP server.
+
+command:
+  - /opt/apps/io.github.NetworkOscilloscope/files/bin/Virtual_Oscilloscope
+
+base: org.deepin.foundation/23.0.0
+runtime: org.deepin.Runtime/23.0.1
+
+sources:
+  - kind: git
+    url: https://github.com/wjyrich/NetworkOscilloscope.git
+    version: master
+    commit: f3fc1d78c3d5848d6a8d9c045f97581abd08e490
+
+build: |
+  cd /project/linglong/sources/NetworkOscilloscope.git
+  qmake -makefile PREFIX=${PREFIX} LIB_INSTALL_DIR=${PREFIX}/lib/${TRIPLET}
+  make -j$(nproc)
+  make install
